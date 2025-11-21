@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca de Prompts Conectada</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">PromptSync</div>
+      <div class="controls">
+        <button id="toggle-sidebar" class="ghost">☰</button>
+        <select id="language-selector"></select>
+        <select id="theme-selector"></select>
+        <button id="help-btn" class="ghost">?</button>
+      </div>
+    </header>
+    <main class="layout">
+      <aside class="sidebar" id="sidebar">
+        <section class="card">
+          <h2 id="form-title">Nuevo prompt</h2>
+          <form id="prompt-form">
+            <label>
+              <span data-i18n="title">Título</span>
+              <input type="text" id="title" name="title" />
+            </label>
+            <label>
+              <span data-i18n="text">Texto</span>
+              <textarea id="text" name="text" required></textarea>
+              <div class="helper" id="char-count">0</div>
+            </label>
+            <label>
+              <span data-i18n="tags">Etiquetas</span>
+              <input type="text" id="tags" name="tags" placeholder="excel, seo" />
+            </label>
+            <label>
+              <span data-i18n="notes">Notas internas</span>
+              <textarea id="notes" name="notes"></textarea>
+            </label>
+            <div class="actions">
+              <button type="submit" id="submit-btn" class="primary" data-i18n="add">Añadir</button>
+              <button type="button" id="reset-btn" class="ghost" data-i18n="reset">Restablecer</button>
+            </div>
+          </form>
+        </section>
+        <section class="card" id="tag-panel">
+          <header class="section-title">
+            <span data-i18n="tags">Etiquetas</span>
+            <button id="add-tag-btn" class="ghost" title="Añadir etiqueta">+</button>
+          </header>
+          <ul id="tag-list"></ul>
+        </section>
+        <section class="card" id="cloud-panel">
+          <header class="section-title">
+            <span data-i18n="cloud">Nube</span>
+          </header>
+          <div class="provider-buttons">
+            <button id="google-btn" class="primary">Google</button>
+            <button id="microsoft-btn" class="primary">Microsoft 365</button>
+          </div>
+          <div id="cloud-status" class="helper"></div>
+          <div class="actions">
+            <button id="sync-btn" class="primary" data-i18n="sync">Sincronizar</button>
+            <button id="load-btn" class="ghost" data-i18n="load">Cargar</button>
+          </div>
+        </section>
+        <section class="card" id="backup-panel">
+          <header class="section-title">
+            <span data-i18n="backup">Respaldo</span>
+          </header>
+          <div class="actions">
+            <button id="export-btn" class="ghost" data-i18n="export">Exportar XML</button>
+            <input type="file" id="import-input" accept="application/xml" hidden />
+            <button id="import-btn" class="ghost" data-i18n="import">Importar XML</button>
+          </div>
+        </section>
+      </aside>
+      <section class="content">
+        <div class="toolbar card">
+          <div class="filters">
+            <input id="search" type="search" placeholder="Buscar..." />
+            <select id="order">
+              <option value="recent">Recientes</option>
+              <option value="alpha">Alfabético</option>
+              <option value="usage">Más usados</option>
+            </select>
+            <select id="view">
+              <option value="grid">Grid</option>
+              <option value="list">Lista</option>
+            </select>
+          </div>
+          <button id="new-prompt-btn" class="fab">+</button>
+        </div>
+        <div id="library" class="grid"></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast-container"></div>
+  <div id="tour-overlay" class="hidden"></div>
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-content card">
+      <header class="section-title">
+        <h3 data-i18n="help">Ayuda</h3>
+        <button id="help-close" class="ghost">✕</button>
+      </header>
+      <div class="modal-body" id="help-body"></div>
+    </div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://alcdn.msauth.net/browser/2.40.0/js/msal-browser.min.js" integrity="sha384-ygkWg2YJzDoLp0AEVeYKfG90kfGzqk/jYh9LqBbCuJd4uoCeWDP7U7Fe0svJq6xK" crossorigin="anonymous"></script>
+</body>
+</html>
